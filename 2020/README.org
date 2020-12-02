@@ -1,6 +1,6 @@
 #+TITLE:Advent of Code 2020
 
-* Progress
-  + Day 1: Solved
-  + Day 2: Solved
-  
+*** Progress
+    + *Day 1:* Solved
+    + *Day 2:* Solved
+
