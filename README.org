@@ -1,3 +1,3 @@
-#+TITLE:Advent of code solutions
+#+TITLE:Advent of Code solutions
 
 Currently working on 2020.
