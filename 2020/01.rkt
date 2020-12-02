@@ -2,29 +2,28 @@
 
 (module amb racket/base
   (provide amb assert!)
-  ;; Matthew Might's implementation
+  ;; Matthew Might's implementation, with some alterations
+  (define-syntax-rule (pop! stack)
+    (begin0 (car stack) (set! stack (cdr stack))))
+  (define-syntax-rule (push! v stack)
+    (set! stack (cons v stack)))
+  (define (U f) (f f))
+
   (define fail-stack '())
   (define (fail!)
     (if (null? fail-stack)
         (error 'amb "Back-tracking stack exhausted!")
-        (let ((back-track-point (car fail-stack)))
-          (set! fail-stack (cdr fail-stack))
-          (back-track-point back-track-point))))
+        (U (pop! fail-stack))))
   (define (amb choices)
     (let ((cc (call/cc values)))
-      (if (null? choices)
-          (fail!)
-          (let ((choice (car choices)))
-            (set! choices (cdr choices))
-            (set! fail-stack (cons cc fail-stack))
-            choice))))
+      (cond ((null? choices) (fail!))
+            (else (push! cc fail-stack)
+                  (pop! choices)))))
   (define (assert! condition)
-    (when (not condition)
-      (fail!))))
-
+    (unless condition (fail!))))
+
 (require 'amb)
 
-
 (define input (file->list "input01.txt" read))
 
 (define (part-1)
