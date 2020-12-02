@@ -1,10 +1,10 @@
 #lang racket
 
 (module amb racket/base
-  (provide amb assertion)
+  (provide amb assert!)
   ;; Matthew Might's implementation
   (define fail-stack '())
-  (define (fail)
+  (define (fail!)
     (if (null? fail-stack)
         (error 'amb "Back-tracking stack exhausted!")
         (let ((back-track-point (car fail-stack)))
@@ -12,15 +12,15 @@
           (back-track-point back-track-point))))
   (define (amb choices)
     (let ((cc (call/cc values)))
-      (cond
-        ((null? choices) (fail))
-        ((pair? choices) (let ((choice (car choices)))
-                           (set! choices (cdr choices))
-                           (set! fail-stack (cons cc fail-stack))
-                           choice)))))
-  (define (assertion condition)
+      (if (null? choices)
+          (fail!)
+          (let ((choice (car choices)))
+            (set! choices (cdr choices))
+            (set! fail-stack (cons cc fail-stack))
+            choice))))
+  (define (assert! condition)
     (when (not condition)
-      (fail))))
+      (fail!))))
 
 (require 'amb)
 
@@ -38,7 +38,7 @@
   (let ((a (amb input))
         (b (amb input))
         (c (amb input)))
-    (assertion (= 2020 (+ a b c)))
+    (assert! (= 2020 (+ a b c)))
     (* a b c)))
 
 (module+ main
