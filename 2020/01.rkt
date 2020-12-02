@@ -24,12 +24,12 @@
 
 (require 'amb)
 
-(define ((adds-up? n a) b)
-  (= n (+ a b)))
-
+
 (define input (file->list "input01.txt" read))
 
 (define (part-1)
+  (define ((adds-up? n a) b)
+    (= n (+ a b)))
   (let loop ((n (car input)) (lst (cdr input)))
     (cond ((findf (adds-up? 2020 n) lst) => (curry * n))
           (else (loop (car lst) (cdr lst))))))
