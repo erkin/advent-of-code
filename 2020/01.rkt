@@ -15,7 +15,7 @@
         (error 'amb "Back-tracking stack exhausted!")
         (U (pop! fail-stack))))
   (define (amb choices)
-    (let ((cc (call/cc values)))
+    (let ((cc (call-with-current-continuation values)))
       (cond ((null? choices) (fail!))
             (else (push! cc fail-stack)
                   (pop! choices)))))
@@ -24,7 +24,7 @@
 
 (require 'amb)
 
-(define input (file->list "input01.txt" read))
+(define input (file->list "input01.txt"))
 
 (define (part-1)
   (define ((adds-up? n a) b)
