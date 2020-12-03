@@ -3,4 +3,4 @@
 *** Progress
     + *Day 1:* Solved
     + *Day 2:* Solved
-    + *Day 3:* Half solved
+    + *Day 3:* Solved
