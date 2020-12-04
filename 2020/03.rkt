@@ -1,5 +1,4 @@
 #lang racket
-(require srfi/1)
 
 (define input (file->lines "input03.txt"))
 

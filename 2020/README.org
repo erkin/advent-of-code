@@ -4,3 +4,4 @@
     + *Day 1:* Solved
     + *Day 2:* Solved
     + *Day 3:* Solved
+    + *Day 4:* Solved
